@@ -1,0 +1,15 @@
+{
+    "cordova_version": "7.1",
+    "framework_version": "3.5",
+    "xcode_version": "9",
+    "title-ja": "ショパンバックアップ20180516",
+    "title-en": "",
+    "description-ja": "",
+    "description-en": "",
+    "category": "User Template",
+    "platform": [
+        "android",
+        "ios"
+    ],
+    "name": "generated-1526450161-5a75544ce78885c4278b4567"
+}

@@ -1,0 +1,476 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap://ready file:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+   <script src="cordova.js"></script>
+   
+   <script src="audio.min.js"></script>
+    <!-- 追加 -->
+    
+    <script src="components/monaca-jquery/jquery.js"></script>
+     
+    
+    <!-- admob.jsよりも前に読み込むこと -->
+    
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="css/style.css">
+     <style type="text/css">
+
+    body {background-image:url("onpuhaikeismall.png");}
+    
+    </style>
+    <script>
+    var onDeviceReady = function() {
+    // select the right Ad Id according to platform
+    var admobid = {};
+    if( /(android)/i.test(navigator.userAgent) ) { // for android & amazon-fireos
+        admobid = {
+            banner: 'ca-app-pub-2783315935195330/8870050132', // or DFP format "/6253334/dfp_example_ad"
+            
+        };
+    } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
+        admobid = {
+            banner: 'ca-app-pub-2783315935195330/8870050132', // or DFP format "/6253334/dfp_example_ad"
+            
+        };
+    } else { // for windows phone
+        admobid = {
+            banner: 'ca-app-pub-2783315935195330/8870050132', // or DFP format "/6253334/dfp_example_ad"
+            
+        };
+    }
+    if(AdMob) AdMob.createBanner( {
+        adId: admobid.banner, 
+        position: AdMob.AD_POSITION.BOTTOM_CENTER, 
+        autoShow: true } );
+};
+document.addEventListener("deviceready", onDeviceReady, false);
+   
+
+    
+   //改行<br>を置換するプログラム。https://s8a.jp/jquery-text-with-lf#%E5%8B%95%E4%BD%9C
+   (function ($) {
+    var escapes = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+        },
+        escapeRegexp = /[&<>"']/g,
+        hasEscapeRegexp = new RegExp(escapeRegexp.source),
+        unescapes = {
+            '&amp;': '&',
+            '&lt;': '<',
+            '&gt;': '>',
+            '&quot;': '"',
+            '&#39;': "'"
+        },
+        unescapeRegexp = /&(?:amp|lt|gt|quot|#39);/g,
+        hasUnescapeRegexp = new RegExp(unescapeRegexp.source),
+        stripRegExp = /<(?:.|\n)*?>/mg,
+        hasStripRegexp = new RegExp(stripRegExp.source),
+        nl2brRegexp = /([^>\r\n]?)(\r\n|\n\r|\r|\n)/g,
+        hasNl2brRegexp = new RegExp(nl2brRegexp.source),
+        br2nlRegexp = /<br\s*\/?>/mg,
+        hasBr2nlRegexp = new RegExp(br2nlRegexp.source);
+
+    $.fn.textWithLF = function (text) {
+        var type = typeof text;
+
+        return (type == 'undefined')
+            ? htmlToText(this.html())
+            : this.html((type == 'function')
+                ? function (index, oldHtml) {
+                    var result = text.call(this, index, htmlToText(oldHtml));
+                    return (typeof result == 'undefined')
+                        ? result
+                        : textToHtml(result);
+                } : textToHtml(text));
+    };
+
+    function textToHtml(text) {
+        return nl2br(escape(toString(text)));
+    }
+
+    function htmlToText(html) {
+        return unescape(strip(br2nl(html)));
+    }
+
+    function escape(string) {
+        return replace(string, escapeRegexp, hasEscapeRegexp, function (match) {
+            return escapes[match];
+        });
+    }
+
+    function unescape(string) {
+        return replace(string, unescapeRegexp, hasUnescapeRegexp, function (match) {
+            return unescapes[match];
+        });
+    }
+
+    function strip(html) {
+        return replace(html, stripRegExp, hasStripRegexp, '');
+    }
+
+    function nl2br(string) {
+        return replace(string, nl2brRegexp, hasNl2brRegexp, '$1<br>');
+    }
+
+    function br2nl(string) {
+        return replace(string, br2nlRegexp, hasBr2nlRegexp, '\n');
+    }
+
+    function replace(string, regexp, hasRegexp, replacement) {
+        return (string && hasRegexp.test(string))
+            ? string.replace(regexp, replacement)
+            : string;
+    }
+
+    function toString(value) {
+        if (value == null) return '';
+        if (typeof value == 'string') return value;
+        if (Array.isArray(value)) return value.map(toString) + '';
+        var result = value + '';
+        return '0' == result && 1 / value == -(1 / 0) ? '-0' : result;
+    }
+})(jQuery);//textWithLF関数作成した。
+    
+     $(function() {//初期設定
+        $('a').css('color','brown');//#0000FF
+        
+    });
+    $(function() {//変化
+    $('#n1').click(function(){
+        var n1 = $('#n1').textWithLF();
+        $('#text-area').textWithLF(n1).css('color','white');
+        $('#n1').css('background-color','#afeeee');
+        
+       $('#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+     $('#n2').click(function(){
+        //$('p').css('color','#fffff0');
+        var n2 = $('#n2').textWithLF();
+        $('#text-area').textWithLF(n2).css('color','white');
+        $('#n2').css('background-color','#afeeee');
+        $('#n1,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+     $('#n3').click(function(){
+        //$('p').css('color','#fffff0');
+        var n3 = $('#n3').textWithLF();
+        $('#text-area').textWithLF(n3).css('color','white');
+        $('#n3').css('background-color','#afeeee');
+        $('#n1,#n2,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+     $('#n4').click(function(){
+        //$('p').css('color','#fffff0');
+        var n4 = $('#n4').textWithLF();
+        $('#text-area').textWithLF(n4).css('color','white');
+        $('#n4').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+     $('#n5').click(function(){
+        //$('p').css('color','#fffff0');
+        var n5 = $('#n5').textWithLF();
+        $('#text-area').textWithLF(n5).css('color','white');
+        $('#n5').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+     $('#n6').click(function(){
+        //$('p').css('color','#fffff0');
+       var n6 = $('#n6').textWithLF();
+        $('#text-area').textWithLF(n6).css('color','white');
+        $('#n6').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+     $('#n7').click(function(){
+        //$('p').css('color','#fffff0');
+       var n7 = $('#n7').textWithLF();
+        $('#text-area').textWithLF(n7).css('color','white');
+        $('#n7').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+     $('#n8').click(function(){
+        //$('p').css('color','#fffff0');
+        var n8 = $('#n8').textWithLF();
+        $('#text-area').textWithLF(n8).css('color','white');
+        $('#n8').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+     $('#n9').click(function(){
+        //$('p').css('color','#fffff0');
+        var n9 = $('#n9').textWithLF();
+        $('#text-area').textWithLF(n9).css('color','white');
+        $('#n9').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+     $('#n10').click(function(){
+        var n10 = $('#n10').textWithLF();
+        $('#text-area').textWithLF(n10).css('color','white');
+        $('#n10').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+        
+    });
+    $('#n11').click(function(){
+        var n11 = $('#n11').textWithLF();
+        $('#text-area').textWithLF(n11).css('color','white');
+        $('#n11').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+     $('#n12').click(function(){
+        var n12 = $('#n12').textWithLF();
+        $('#text-area').textWithLF(n12).css('color','white');
+        $('#n12').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+    $('#n13').click(function(){
+        var n13 = $('#n13').textWithLF();
+        $('#text-area').textWithLF(n13).css('color','white');
+        $('#n13').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+    $('#n14').click(function(){
+        var n14 = $('#n14').textWithLF();
+        $('#text-area').textWithLF(n14).css('color','white');
+        $('#n14').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+    $('#n15').click(function(){
+        var n15 = $('#n15').textWithLF();
+        $('#text-area').textWithLF(n15).css('color','white');
+        $('#n15').css('background-color','#afeeee');
+       $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+    $('#n16').click(function(){
+        var n16 = $('#n16').textWithLF();
+        $('#text-area').textWithLF(n16).css('color','white');
+        $('#n16').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+    $('#n17').click(function(){
+        var n17 = $('#n17').textWithLF();
+        $('#text-area').textWithLF(n17).css('color','white');
+        $('#n17').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+    $('#n18').click(function(){
+        var n18 = $('#n18').textWithLF();
+        $('#text-area').textWithLF(n18).css('color','white');
+        $('#n18').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+    $('#n19').click(function(){
+        var n19 = $('#n19').textWithLF();
+        $('#text-area').textWithLF(n19).css('color','white');
+        $('#n19').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+    $('#n20').click(function(){
+        var n20 = $('#n20').textWithLF();
+        $('#text-area').textWithLF(n20).css('color','white');
+        $('#n20').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+     $('#n21').click(function(){
+        var n21 = $('#n21').textWithLF();
+        $('#text-area').textWithLF(n21).css('color','white');
+        $('#n21').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+    $('#n22').click(function(){
+        var n22 = $('#n22').textWithLF();
+        $('#text-area').textWithLF(n22).css('color','white');
+        $('#n22').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n23,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+    $('#n23').click(function(){
+        var n23 = $('#n23').textWithLF();
+        $('#text-area').textWithLF(n23).css('color','white');
+        $('#n23').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n24,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+    $('#n24').click(function(){
+        var n24 = $('#n24').textWithLF();
+        $('#text-area').textWithLF(n24).css('color','white');
+        $('#n24').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n25,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+    $('#n25').click(function(){
+       var n25 = $('#n25').textWithLF();
+        $('#text-area').textWithLF(n25).css('color','white');
+        $('#n25').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n26,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+    $('#n26').click(function(){
+        var n26 = $('#n26').textWithLF();
+        $('#text-area').textWithLF(n26).css('color','white');
+        $('#n26').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n27,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+    $('#n27').click(function(){
+        var n27 = $('#n27').textWithLF();
+        $('#text-area').textWithLF(n27).css('color','white');
+        $('#n27').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n28,#n29,#n30').css('background-color','#fffff0');
+    });
+    $('#n28').click(function(){
+        var n28 = $('#n28').textWithLF();
+        $('#text-area').textWithLF(n28).css('color','white');
+        $('#n28').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n29,#n30').css('background-color','#fffff0');
+    });
+    $('#n29').click(function(){
+        var n29 = $('#n29').textWithLF();
+        $('#text-area').textWithLF(n29).css('color','white');
+        $('#n29').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n30').css('background-color','#fffff0');
+    });
+    $('#n30').click(function(){
+        var n30 = $('#n30').textWithLF();
+        $('#text-area').textWithLF(n30).css('color','white');
+        $('#n30').css('background-color','#afeeee');
+        $('#n1,#n2,#n3,#n4,#n5,#n6,#n7,#n8,#n9,#n10,#n11,#n12,#n13,#n14,#n15,#n16,#n17,#n18,#n19,#n20,#n21,#n22,#n23,#n24,#n25,#n26,#n27,#n28,#n29').css('background-color','#fffff0');
+    });
+});
+    
+    
+     
+        $(function() { 
+             
+        // Setup the player to autoplay the next track
+        var a = audiojs.createAll({
+          trackEnded: function() {
+            var next = $('ol li.playing').next();
+            if (!next.length) next = $('ol li').first();
+            next.addClass('playing').siblings().removeClass('playing');
+            audio.load($('a', next).attr('data-src'));
+            audio.play();
+            $('#text-area').textWithLF(next.closest('li').textWithLF());//次の曲名をバーの上に表示
+           // var n30 = $('#n30').textWithLF();
+           // $('#text-area').textWithLF(n30);
+           
+            $('li').css('background-color','#fffff0');//一旦今のliを元の色に
+            next.css('background-color','#afeeee');//次のliを新色に
+            
+            //$('a').html(next.closest('li').css('color', '#afeeee'));
+            //$('.next').css('color', '#afeeee');
+            //$('li').css('color','#afeeee');
+            //var nextid = $('a').attr('id');
+            //nextid.css('color','#afeeee');
+           
+          }//trackEnded functionの閉じ}
+        });//audiojs.createAllの閉じ}
+        
+        // Load in the first track
+        var audio = a[0];
+            first = $('ol a').attr('data-src');
+        $('ol li').first().addClass('playing');
+        audio.load(first);
+
+        // Load in a track on click
+        $('ol li').click(function(e) {
+          e.preventDefault();
+          $(this).addClass('playing').siblings().removeClass('playing');
+          audio.load($('a', this).attr('data-src'));
+          audio.play();
+          //$(this).css('color','#afeeee');
+        });
+    });
+        
+            
+      
+      
+    </script>
+</head>
+<body>
+
+
+    <div id="audio_1">
+<div id="header-wrapper">
+    <div id="img-wrapper">
+        <div id="img1">
+        <img id="img1" src="chopinkore.png" alt="">
+        </div>
+        <div id="text-area">
+            <div id="strong-wrapper">
+            <strong id="font-gr" style="font-size:36px;letter-spacing:2px;">F. CHOPIN<span id="best"><br>Best</span><span id="indent">30</span></strong>
+            </div>
+            
+        </div>
+         
+     </div>
+     
+        
+     
+</div>   
+     <div class="list">
+     <img id="img2" src="chopinkore.png" alt=""> 
+   <div id="senkyoku"><br><a href="index.html"><img class="countryPng" id="ukPng" src="uk.png" alt="" /></a><a href="japan.html"><img  class="countryPng" id="japanPng" src="japan.png" alt="" /></a>
+   <br />Please select track.</div><div id="ryoukin"></div>
+    <ol>    
+     <li id="n1"><a href="#" data-src="no1s.mp3" class="next"><span class="number">1</span><br/>Impromptu No.4<br>'Fantaisie-Impromptu'<br>Op.66</a></li>
+     <li id="n2"><a href="#" data-src="no2t.mp3" class="next"><span class="number">2</span><br>Etude Op.10-3<br>'Tristesse'</a></li>
+     <li id="n3"><a href="#" data-src="no3t.mp3" class="next"><span class="number">3</span><br>Nocturne<br>E-flat major Op.9-2</a></li>
+     <li id="n4"><a href="#" data-src="no4t.mp3" class="next"><span class="number">4</span><br>Etude Op.10-12<br>'Revolutionary'</a></li>
+     <li id="n5"><a href="#" data-src="no5t.mp3" class="next"><span class="number">5</span><br>Polonaise<br>'Heroique'<br>Op.53</a></li>
+     <li id="n6"><a href="#" data-src="no6t.mp3" class="next"><span class="number">6</span><br>Etude Op.10-4</a></li>
+     <li id="n7"><a href="#" data-src="no7t.mp3" class="next"><span class="number">7</span><br>Nocturne<br>Op.posth.</a></li>
+     <li id="n8"><a href="#" data-src="no8t.mp3" class="next"><span class="number">8</span><br>Piano Concerto No.1<br>I. Allegro Maestoso<br>Op.11</a></li>
+     <li id="n9"><a href="#" data-src="no9t.mp3" class="next"><span class="number">9</span><br>Ballade No.1<br>Op.23</a></li>
+     <li id="n10"><a href="#" data-src="no10t.mp3" class="next"><span class="number">10</span><br>Preludes<br>'Raindrop'<br>Op.28-15</a></li>
+     <li id="n11"><a href="#" data-src="no11t.mp3" class="next"><span class="number">11</span><br>Waltz<br>'Minute Waltz'<br>Op.64-1</a></li>
+     <li id="n12"><a href="#" data-src="no12t.mp3" class="next"><span class="number">12</span><br>Sonata No.2<br>III. Funeral March<br>Op.35</a></li>
+     <li id="n13"><a href="#" data-src="no13t.mp3" class="next"><span class="number">13</span><br>Grande valse brillante<br>Op.18</a></li>
+     <li id="n14"><a href="#" data-src="no14t.mp3" class="next"><span class="number">14</span><br>Etude Op.10-5<br>'Black Key'</a></li>
+     <li id="n15"><a href="#" data-src="no15t.mp3" class="next"><span class="number">15</span><br>Waltz<br>Op.64-2</a></li>
+     <li id="n16"><a href="#" data-src="no16t.mp3" class="next"><span class="number">16</span><br>Nocturne<br>Op.9-1</a></li>
+     <li id="n17"><a href="#" data-src="no17t.mp3" class="next"><span class="number">17</span><br>Grande Polonaise Brillante<br>Op.22</a></li>
+     <li id="n18"><a href="#" data-src="no18t.mp3" class="next"><span class="number">18</span><br>Etude Op.25-11<br>'Winter Wind'</a></li>
+     <li id="n19"><a href="#" data-src="no19t.mp3" class="next"><span class="number">19</span><br>Piano Concerto No.1<br>III. Rondo–Vivace<br>Op.11</a></li>
+     <li id="n20"><a href="#" data-src="no20t.mp3" class="next"><span class="number">20</span><br>Berceuse<br>Op.57</a></li>
+     <li id="n21"><a href="#" data-src="no21t.mp3" class="next"><span class="number">21</span><br>Scherzo No.2<br>Op.31</a></li>
+     <li id="n22"><a href="#" data-src="no22t.mp3" class="next"><span class="number">22</span><br>Ballade No.4<br>Op.52</a></li>
+     <li id="n23"><a href="#" data-src="no23t.mp3" class="next"><span class="number">23</span><br>Polonaise<br>'Military'<br>Op.40-1</a></li>
+     <li id="n24"><a href="#" data-src="no24t.mp3" class="next"><span class="number">24</span><br>Barcarolle<br>Op.60</a></li>
+     <li id="n25"><a href="#" data-src="no25t.mp3" class="next"><span class="number">25</span><br>Nocturne<br>Op.27-2</a></li>
+     <li id="n26"><a href="#" data-src="no26t.mp3" class="next"><span class="number">26</span><br>Etude Op.25-1<br>'Aeolian Harp'</a></li>
+     <li id="n27"><a href="#" data-src="no27t.mp3" class="next"><span class="number">27</span><br>Waltz<br>Op.69-2</a></li>
+     <li id="n28"><a href="#" data-src="no28t.mp3" class="next"><span class="number">28</span><br>Scherzo No.1<br>Op.20</a></li>
+     <li id="n29"><a href="#" data-src="no29t.mp3" class="next"><span class="number">29</span><br>Ballade No.3<br>Op.47</a></li>
+     <li id="n30"><a href="#" data-src="no30t.mp3" class="next"><span class="number">30</span><br>Waltz<br>'Farewell'<br>Op.69-1</a></li>
+    </ol>
+   </div>
+   <p id="copy">&copy; RayhcSoft<br><br>
+        
+Source tracks are not subject to copyright.<br>
+We are using public domain sources from MUSEOPEN.  
+         
+    </p>
+    
+            
+            
+
+    
+    <div id="audio-wrapper">
+    
+        <div id = 'audio'><audio preload="none"></audio></div>
+            
+            
+            <!-- <script type="text/javascript">
+            var nend_params = {"media":53495,"site":292297,"spot":854679,"type":1,"oriented":3};
+            </script>
+            <div class="nend_wrapper">
+            <script type="text/javascript" src="https://js1.nend.net/js/nendAdLoader.js"></script>
+            </div>  -->
+            <br>
+           
+    </div>
+            
+   
+    
+    </div>
+            
+</body>
+</html>
